@@ -5,28 +5,31 @@
 
 <section class="mb-4" aria-labelledby="tituloBusqueda">
   <h2 id="tituloBusqueda" class="visually-hidden">Buscar tickets</h2>
-
-  <form class="row g-2 justify-content-center" role="search" method="GET" >
-    <input type="hidden" name="action" value="list">
-
-    <div class="col-md-6">
-      <label for="busqueda" class="visually-hidden">Buscar</label>
-      <input type="search" class="form-control" id="busqueda" name="busqueda" placeholder="Buscar por código, asunto o solicitante" value="">
-    </div>
-
-    <div class="col-md-auto d-flex gap-2">
-      <button type="submit" class="btn btn-primary">Buscar</button>
-    </div>
-  </form>
 </section>
 
-<div class="row g-4">
+<section div class="row g-4">
 
-  <section class="col-lg-12" aria-labelledby="tituloListado">
-    <h2 id="tituloListado" class="h5 mb-3">Tickets generados</h2>
+  <div class="col-lg-12" aria-labelledby="tituloListado">
+    <div class="row g-3">
+      <div class="col-md-5">
+        <h2 id="tituloListado" class="h5 mb-3">Tickets generados</h2>
+      </div>
+
+      <div class="col-md-7">
+        <form class="search" method="GET" action="index.php" id="formBusqueda" aria-label="Buscra ticket">
+          <input type="hidden" name="action" value="list">
+          <div class="input-group">
+            <input type="search" id="busqueda" name="busqueda"
+              class="form-control"
+              placeholder="Buscar por código, asunto o solicitante" value="<?php htmlspecialchars($busqueda ?? '') ?>" />
+            <button type="submit" class="btn btn-primary" id="limpiarBusqueda">Buscar</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <div class="table-responsive">
-      <table class="table table-striped table-hover align-middle">
+      <table class="table table-striped table-hover align-middle" id="tablaTickets">
         <caption class="visually-hidden">Tickets registrados en el sistema</caption>
         <thead class="table-dark">
           <tr>
@@ -158,9 +161,11 @@
       </table>
     </div>
 
-    <p class="alert alert-info d-none" role="status">
-      No se encontraron tickets que coincidan con la búsqueda.
-    </p>
-  </section>
+    <p class="text-secondary small mt-2" id="contadorResultados" aria-live="polite"></p>
 
-</div>
+    <div class="alert alert-info d-none" id="sinResultados" role="status">
+      No se encontraron tickets que coincidan con la búsqueda.
+    </div>
+  </div>
+
+</section>

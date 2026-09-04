@@ -19,16 +19,11 @@ body {
   padding: 0.9rem 0;
 }
 
-.fa,
-.fas {
-  color: var(--color-primario);
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 2.5rem;
-  padding: 1rem;
-}
-
 /*Footer*/
 footer {
   width: 100%;
+}
+
+.invalid-feedback:not(:empty) {
+    display: block;
 }
