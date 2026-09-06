@@ -6,7 +6,7 @@ class Database
   private const HOST     = 'localhost';
   private const NAME     = 'integradora';
   private const USER     = 'root';
-  private const PASSWORD = '';          // XAMPP instala root sin contraseña
+  private const PASSWORD = 'demo1713';          // XAMPP instala root sin contraseña
   private const CHARSET  = 'utf8mb4';
 
   // Guarda la conexión ya abierta.

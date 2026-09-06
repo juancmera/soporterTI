@@ -1,27 +1,33 @@
 <?php
+require __DIR__ . '/config/database.php';
+require __DIR__ . '/models/Ticket.php';
+require __DIR__ . '/controllers/TicketController.php';
+
+// Abre conexión a al DB
+$database = new Database();
+$pdo = $database->connect();
+
+//El Modelo recibe conexión
+$model = new Ticket($pdo);
+
+//EL Controlador recibe el modelo
+$controller = new TicketController($model);
 $action = $_GET['action'] ?? 'home';
 
 switch ($action) {
-  // Pagina de formulario de registro de tickets.
-  case 'create':
-    $title = 'Regsitrar ticket';
-    $page = __DIR__ . '/views/pages/createTicket.php';
-    $script = 'assets/js/validation.js'; // validaciones, solo en esta pantalla
-    break;
+    case 'create':
+        $controller->create();
+        break;
 
-  // Pagina lista de tickets.
-  case 'list':
-    $title = 'Mostrar ticket';
-    $page = __DIR__ . '/views/pages/listTickets.php';
-    $script = 'assets/js/search.js'; // validaciones, solo en esta pantalla
-    break;
+    case 'list':
+        $controller->list();
+        break;
 
-  // Pantalla inicio. Es también el caso por defecto
-  case 'home':
-  default:
-    $title = 'Inicio';
-    $page = __DIR__ . '/views/pages/home.php';
-    break;
+    case 'home':
+    default:
+        $controller->home();
+        break;
 }
-// El layout arma el documento completo e inserta $page en su interior.
-require __DIR__ . '/views/layouts/main.php';
+
+// Enruta 
+$action = $_GET['action'] ?? 'home';
