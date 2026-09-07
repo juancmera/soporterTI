@@ -5,7 +5,7 @@ class Database
   private $host = 'localhost';
   private $db_name = 'integradora';
   private $username  = 'root';
-  private $password = 'demo1713';
+  private $password = '';
 
   private $conn;
 
