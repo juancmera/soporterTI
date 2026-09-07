@@ -26,17 +26,17 @@ function navCurrent(string $page, string $current): string
           <li class="nav-item">
             <a class="<?= navClass('home', $currentPage) ?>"
               <?= navCurrent('home', $currentPage) ?>
-              href="index.php">Inicio</a>
+              href="index.php?action=home">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="<?= navClass('create', $currentPage) ?>"
               <?= navCurrent('create', $currentPage) ?>
-              href="index.php?action=create">Registro de tickets</a>
+              href="index.php?action=create">Registro de Incidente</a>
           </li>
           <li class="nav-item">
             <a class="<?= navClass('list', $currentPage) ?>"
               <?= navCurrent('list', $currentPage) ?>
-              href="index.php?action=list">Consulta de tickets</a>
+              href="index.php?action=list">Consulta de Incidentes</a>
           </li>
 
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">

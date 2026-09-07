@@ -2,10 +2,9 @@
 (function () {
 
   const form = document.getElementById('formTicket');
-  console.log('form:', form);
+
   if (!form) return;
-  console.log('campo nombre:', form.elements['nombre']);
-console.log('div error:', document.getElementById('error-nombre'));
+
   // ---- Reglas de validación por campo ----
   const rules = {
     nombre: [

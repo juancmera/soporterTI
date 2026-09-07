@@ -1,42 +1,67 @@
 <?php
-class Ticket
-{
+class Tickets {
+  private $conn;
 
-  //Recibe conexión de la DB
-  private PDO $pdo;
-
-  public  function __construct(PDO $pdo)
-  {
-    $this->pdo = $pdo;
-  }
-  // Carga todos los tickets ordenados
-  public function allTickets(): array
-  {
-
-    $sql = 'SELECT id, nombre, correo, extension, area, asunto,
-                   tipo_incidencia, prioridad, estado, fecha_registro
-            FROM tickets
-            ORDER BY fecha_registro DESC';
-
-    return $this->pdo->query($sql)->fetchAll();
+  public function __construct($db) {
+    $this->conn = $db;
   }
 
-  // Diseño de los badgets según el tipo
-  public static function priorityClass(string $prioridad): string
-  {
-    return match ($prioridad) {
-      'Alta'  => 'danger',
-      'Media' => 'warning',
-      default => 'secondary',
-    };
+  //Guarda nuevo ticket
+  public function saveTicket(array $data): bool {
+    
+    $query ='INSERT INTO tickets (nombre, correo, extension, area, asunto, tipo_incidencia, prioridad, descripcion) 
+            VALUES (:nombre, :correo, :extension, :area, :asunto, :tipo_incidencia, :prioridad, :descripcion)';
+
+    $stmt = $this->conn->prepare($query);
+
+    return $stmt->execute(
+      [
+        ':nombre' => $data['nombre'],
+        ':correo' => $data['correo'],
+        ':extension' => $data['extension'],
+        ':area' => $data['area'],
+        ':asunto' => $data['asunto'],
+        ':tipo_incidencia' => $data['tipo_incidencia'],
+        ':prioridad' => $data['prioridad'],
+        ':descripcion' => $data['descripcion'],
+      ]
+    );
+
   }
 
-  public static function statusClass(string $estado): string
-  {
-    return match ($estado) {
-      'Finalizado' => 'success',
-      'En espera'  => 'primary',
-      default      => 'secondary',
-    };
+  // carga todos los tickets
+  public function tickets() {
+    $query = 'SELECT id, nombre, correo, extension, area, asunto, tipo_incidencia, prioridad, estado, fecha_registro FROM tickets ORDER BY fecha_registro DESC';
+
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  //Dashboard tickets
+  public function summary(): array {
+    $summary = [
+      'Pendiente'  => 0,
+      'En espera'  => 0,
+      'Finalizado' => 0,
+      'total'      => 0,
+    ];
+    
+    $query = 'SELECT estado, COUNT(*) AS cantidad
+      FROM tickets
+      GROUP BY estado';
+
+    $stmt = $this->conn->prepare($query);
+
+    $stmt->execute();
+
+    foreach ($stmt as $row) {
+        $summary[$row['estado']] = (int) $row['cantidad'];
+        $summary['total'] += (int) $row['cantidad'];
+    }
+
+    return $summary;
+  }
+
 }

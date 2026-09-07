@@ -1,5 +1,5 @@
 <section class="py-4 text-center">
-  <h1 class="h3">Registrar ticket</h1>
+  <h1 class="h3">Registrar Incidente</h1>
   <p class="lead text-secondary mb-0">
     Los campos marcados con asterisco son obligatorios.
   </p>
@@ -8,20 +8,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-10">
 
-      <?php if (!empty($errors)): ?>
-        <div class="alert alert-danger" role="alert">
-          <p class="fw-semibold mb-2">Revisa los siguientes campos:</p>
-          <ul class="mb-0">
-            <?php foreach ($errors as $campo => $error): ?>
-              <li><a href="#<?= htmlspecialchars($campo) ?>" class="alert-link">
-                  <?= htmlspecialchars($error) ?>
-                </a></li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-      <?php endif; ?>
-
-      <form class="card" id="formTicket" method="POST" action="index.php?action=store" novalidate>
+      <form class="card" id="formTicket" method="POST" action="index.php?action=create" novalidate>
 
         <fieldset class="py-4 px-4">
           <legend class="h5 mb-3">Datos del solicitante</legend>
@@ -63,12 +50,12 @@
               <label for="area" class="form-label">Área o dependencia *</label>
               <select class="form-select " id="area" name="area" required>
                 <option value="">Selecciona un área</option>
-                <option value="1">Decanato</option>
-                <option value="2">Dirección</option>
-                <option value="3">Secretaría</option>
-                <option value="4">Docencia</option>
-                <option value="5">Estudiantes</option>
-                <option value="6">Biblioteca</option>
+                <option value="Decanato">Decanato</option>
+                <option value="Direccion">Dirección</option>
+                <option value="Secretaria">Secretaría</option>
+                <option value="Docencia">Docencia</option>
+                <option value="Estudiantes">Estudiantes</option>
+                <option value="Biblioteca">Biblioteca</option>
               </select>
 
               <div class="invalid-feedback" id="error-area">
@@ -89,13 +76,13 @@
               <select class="form-select"
                 id="tipo_incidencia" name="tipo_incidencia" required>
                 <option value="">Selecciona un tipo</option>
-                <option value="1">Equipo de cómputo</option>
-                <option value="2">Red e internet</option>
-                <option value="3">Correo institucional</option>
-                <option value="4">Sistema académico</option>
-                <option value="5">Impresión</option>
-                <option value="6">Software</option>
-                <option value="7">Otro</option>
+                <option value="Equipo de computo">Equipo de cómputo</option>
+                <option value="Red e internet">Red e internet</option>
+                <option value="Correo institucional">Correo institucional</option>
+                <option value="Sistema academico">Sistema académico</option>
+                <option value="Impresion">Impresión</option>
+                <option value="Software">Software</option>
+                <option value="Otro">Otro</option>
               </select>
 
               <div class="invalid-feedback" id="error-tipo_incidencia">
@@ -108,9 +95,9 @@
               <select class="form-select"
                 id="prioridad" name="prioridad" required>
                 <option value="">Selecciona</option>
-                <option value="1">Baja</option>
-                <option value="2">Media</option>
-                <option value="3">Alta</option>
+                <option value="Baja">Baja</option>
+                <option value="Media">Media</option>
+                <option value="Alta">Alta</option>
               </select>
 
               <div class="invalid-feedback" id="error-prioridad">
@@ -146,7 +133,7 @@
         </fieldset>
 
         <div class="d-flex gap-2 px-4 pb-4">
-          <button type="submit" class="btn btn-primary">Registrar ticket.</button>
+          <button type="submit" class="btn btn-primary">Registrar incidente.</button>
           <a href="index.php" class="btn btn-outline-secondary">Cancelar</a>
         </div>
 
